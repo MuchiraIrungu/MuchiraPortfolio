@@ -22,7 +22,7 @@ body{color:var(--text-primary);font-family:var(--font-primary);font-weight:400;l
 a{color:inherit;text-decoration:none;}
 
 /* ── CONSTELLATION CANVAS ── */
-#constellation-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.4;}
+#constellation-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.3;}
 
 /* ── SCROLL BAR ── */
 #scroll-bar{position:fixed;left:0;top:0;height:3px;width:0%;z-index:300;background:linear-gradient(90deg, var(--accent), var(--accent-secondary));box-shadow:0 0 15px rgba(11, 79, 108, 0.3);}
@@ -81,20 +81,31 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
 .stat-item{background:var(--surface);padding:1.5rem;border-radius:16px;border:1px solid var(--border);text-align:center;}
 .stat-num{font-weight:900;font-size:2.8rem;color:var(--text-primary);}
 
-/* ── PROJECTS ── */
+/* ── SKILLS ── */
 .projects-col h2{font-weight:900;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-0.02em;margin-bottom:1.5rem;}
 .projects-col h2 span{color:var(--accent-secondary);}
-.project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;width:100%;}
-@media(max-width:900px){.project-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:600px){.project-grid{grid-template-columns:1fr;}}
-.tilt-card{background:var(--surface);padding:2rem;border-radius:20px;border:1px solid var(--border);transition:transform 0.3s;}
-.tilt-card h3{font-weight:700;font-size:1.1rem;margin-bottom:1rem;}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;width:100%;}
+.skill-card{background:var(--surface);padding:1.5rem;border-radius:20px;border:1px solid var(--border);transition:transform 0.3s;}
+.skill-card h3{font-weight:700;font-size:1rem;margin-bottom:1rem;}
 .tag{font-family:var(--font-mono);font-size:0.7rem;font-weight:500;color:var(--text-secondary);background:#F1F0EE;padding:0.25rem 0.7rem;border-radius:6px;display:inline-block;margin:0.2rem;}
-.p-badge{font-size:0.65rem;font-weight:600;color:var(--surface);background:var(--accent);padding:0.2rem 0.8rem;border-radius:50px;width:fit-content;margin-bottom:1rem;}
+
+/* ── PROJECTS ── */
+.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;width:100%;margin-top:2rem;}
+.project-card{background:var(--surface);padding:1.5rem;border-radius:20px;border:1px solid var(--border);transition:transform 0.3s;}
+.project-card h3{font-weight:700;font-size:1.2rem;margin-bottom:0.5rem;}
+.p-badge{font-size:0.65rem;font-weight:600;color:var(--surface);background:var(--accent);padding:0.2rem 0.8rem;border-radius:50px;width:fit-content;margin-bottom:0.8rem;}
 .project-card p{color:var(--text-secondary);font-size:0.9rem;line-height:1.6;margin-bottom:1.2rem;}
 .p-links{display:flex;gap:1.2rem;border-top:1px solid var(--border);padding-top:1rem;}
 .p-links a{font-weight:600;font-size:0.8rem;color:var(--text-muted);transition:color 0.2s;}
 .p-links a:hover{color:var(--accent-secondary);}
+
+/* ── EXPERIENCE ── */
+.experience-col h2{font-weight:900;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-0.02em;margin-bottom:1.5rem;}
+.experience-col h2 span{color:var(--accent-secondary);}
+.tl-item{display:grid;grid-template-columns:160px 1fr;gap:2.5rem;padding:1.5rem 0;border-bottom:1px solid var(--border);}
+.tl-when{font-family:var(--font-mono);font-size:0.8rem;font-weight:600;color:var(--accent-secondary);padding-top:0.2rem;}
+.tl-item h3{font-weight:700;font-size:1.2rem;margin-bottom:0.2rem;}
+.tl-item p{color:var(--text-secondary);font-size:0.95rem;line-height:1.6;}
 
 /* ── CONTACT ── */
 .contact-panel{background:var(--text-primary);border-radius:32px;padding:5rem 2rem;text-align:center;width:100%;max-width:900px;margin:0 auto;}
@@ -131,11 +142,11 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
   <section class="section-3d active" data-section="0">
     <div class="section-grid">
       <div>
-        <div class="hl-label">Nairobi · Cloud & Integration</div>
+        <div class="hl-label">Nairobi · Cloud & Fintech Integration</div>
         <div class="hl-name">Collins</div>
         <div class="hl-accent">Muchira</div>
         <div class="hl-role">I engineer <span class="hl-typed">{{typed}}</span><span class="hl-caret"></span></div>
-        <p class="hero-sub">Full-stack engineer specializing in secure cloud-native integrations, fintech APIs, and end-to-end system architecture.</p>
+        <p class="hero-sub">Final-year Business Information Technology student (JKUAT) and full-stack developer with production experience across Django/DRF, React, Node.js, and AWS. I independently audited a live fintech platform, uncovered critical vulnerabilities, and built the corrected architecture — combining hands-on development with a security-first mindset.</p>
         <div class="hero-ctas">
           <a href="#projects" class="btn btn-primary">View Portfolio →</a>
           <a href="#contact" class="btn btn-outline">Contact</a>
@@ -159,37 +170,93 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
   <!-- ABOUT (1) -->
   <section class="section-3d" data-section="1">
     <div class="about-col" style="max-width:900px;margin:0 auto;width:100%;">
-      <h2>Build with <span>security</span> at the core.</h2>
-      <p>I'm a software engineer based in Nairobi, completing my BBIT at JKUAT. I specialize in building and securing the complex integrations that fintech and banking platforms rely on.</p>
-      <p>My approach is <strong>T-shaped</strong>: broad competence across the full stack, with a deep, growing expertise in cloud security (AWS IAM, VPC segmentation, OWASP).</p>
+      <h2>Security-First <span>Engineering.</span></h2>
+      <p>I'm a full-stack developer based in Nairobi, completing my BBIT at JKUAT. I specialize in building and securing the complex integrations that fintech and banking platforms rely on, with production experience across Django, React, and Node.js.</p>
+      <p>My work bridges the gap between software development and operational security: independently auditing live production environments, uncovering authentication flaws, and rebuilding secure architectures. I bring a T-shaped approach—broad competence across the development lifecycle, with deep expertise in cloud security, API integrity, and secure data handling.</p>
       <div class="stat-grid">
-        <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label">Prod Systems Shipped</div></div>
-        <div class="stat-item"><div class="stat-num">3rd</div><div class="stat-label">Hackathon Place</div></div>
-        <div class="stat-item"><div class="stat-num">2027</div><div class="stat-label">BBIT Grad</div></div>
+        <div class="stat-item"><div class="stat-num">11</div><div class="stat-label">Vulnerabilities Identified & Reported</div></div>
+        <div class="stat-item"><div class="stat-num">3rd</div><div class="stat-label">Place, ChamaConnect Hackathon</div></div>
+        <div class="stat-item"><div class="stat-num">2027</div><div class="stat-label">Expected BBIT Graduation, JKUAT</div></div>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS (2) -->
+  <!-- SKILLS + PROJECTS (2) -->
   <section class="section-3d" data-section="2">
     <div class="projects-col" style="max-width:1200px;margin:0 auto;width:100%;">
-      <h2>Systems I've <span>deployed.</span></h2>
+      <h2>What I <span>build with.</span></h2>
+      <div class="skills-grid">
+        <div class="skill-card"><h3>Languages</h3><span class="tag">Python</span><span class="tag">Java</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span></div>
+        <div class="skill-card"><h3>Backend</h3><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">Node.js</span><span class="tag">Spring Boot</span></div>
+        <div class="skill-card"><h3>Frontend</h3><span class="tag">React</span><span class="tag">Vue.js</span><span class="tag">React Native</span><span class="tag">Redux Toolkit</span><span class="tag">Tailwind</span></div>
+        <div class="skill-card"><h3>Databases</h3><span class="tag">PostgreSQL</span><span class="tag">MySQL</span></div>
+        <div class="skill-card"><h3>Cloud & Infra</h3><span class="tag">AWS EC2</span><span class="tag">Nginx</span><span class="tag">Gunicorn</span><span class="tag">Docker</span></div>
+        <div class="skill-card"><h3>Tools</h3><span class="tag">Git/GitHub</span><span class="tag">GitHub Actions</span><span class="tag">Postman</span><span class="tag">Jira</span></div>
+      </div>
+      
+      <h2 style="font-weight:900;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-0.02em;margin:2.5rem 0 1.5rem;">Systems I've <span style="color:var(--accent-secondary);">deployed.</span></h2>
       <div class="project-grid">
-        <div class="tilt-card project-card" v-for="p in projects" :key="p.title">
-          <div class="p-badge">{{p.badge}}</div>
-          <h3>{{p.title}}</h3>
-          <p>{{p.desc}}</p>
-          <div class="p-links"><a v-if="p.live" :href="p.live" target="_blank">↗ Live</a><a v-if="p.src" :href="p.src" target="_blank">↗ Code</a></div>
+        <div class="project-card">
+          <div class="p-badge">LIVE · FINTECH</div>
+          <h3>HarvestIQ</h3>
+          <p>Full-stack application built with Django 5.2, DRF, and JWT on the backend, and React, TypeScript, and Vite with Redux Toolkit on the frontend. Deployed to AWS EC2 behind Nginx and Gunicorn.</p>
+          <div class="p-links"><a href="https://github.com/MuchiraIrungu/HarvestIQ" target="_blank">↗ Source Code</a></div>
+        </div>
+        <div class="project-card">
+          <div class="p-badge">HACKATHON · AI</div>
+          <h3>CogniRoute</h3>
+          <p>Adaptive AI tutoring app with a two-layer hybrid router. FastAPI/Python backend with SQLite; React/Vite frontend with a live routing-decision panel. Packaged as a Dockerized batch-evaluation submission.</p>
+          <div class="p-links"><a href="https://github.com/MuchiraIrungu" target="_blank">↗ View Repo</a></div>
+        </div>
+        <div class="project-card">
+          <div class="p-badge">TECH ASSESSMENT</div>
+          <h3>Wallet & Payments API</h3>
+          <p>NestJS, TypeScript, and TypeORM REST API implementing atomic wallet deposits and transfers. Modeled money as integer minor units to prevent floating-point errors.</p>
+          <div class="p-links"><a href="https://github.com/MuchiraIrungu" target="_blank">↗ View Repo</a></div>
+        </div>
+        <div class="project-card">
+          <div class="p-badge">ACADEMIC · MOBILE</div>
+          <h3>Smart Parking & Mobile POS</h3>
+          <p>React Native projects demonstrating mobile-first architecture, secure API integrations, and state management.</p>
+          <div class="p-links"><a href="https://github.com/MuchiraIrungu" target="_blank">↗ View Repo</a></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT (3) -->
+  <!-- EXPERIENCE (3) -->
   <section class="section-3d" data-section="3">
+    <div class="experience-col" style="max-width:1000px;margin:0 auto;width:100%;">
+      <h2>Where <span>I've worked.</span></h2>
+      <div class="tl-item">
+        <div class="tl-when">Jun 2026 – Aug 2026</div>
+        <div>
+          <h3>Software Developer Intern (Full-Stack) — Roberms Limited</h3>
+          <p>Maintained and extended rentalkenya.co.ke, a live rental platform. Shipped backend features in Node.js and frontend components in Vue.js within a live production codebase alongside the engineering team.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">2026</div>
+        <div>
+          <h3>Security & Compliance Testing Engagement — MUIAA Limited</h3>
+          <p>Independently audited a live fintech production platform end-to-end, identifying 11 confirmed vulnerabilities (5 critical) across authentication, session handling, and data exposure. Built a Django REST API demonstrating the corrected auth architecture. Placed 3rd in the hackathon and secured a follow-on 1-month contract to verify fixes.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">2023 – 2027</div>
+        <div>
+          <h3>Bachelor of Business Information Technology — JKUAT</h3>
+          <p>Software Engineering, Database Systems, Web Development, Data Structures.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT (4) -->
+  <section class="section-3d" data-section="4">
     <div class="contact-panel">
       <div class="contact-headline">Let's build <span>something.</span></div>
-      <p class="contact-sub">Open to roles in fintech integration, cloud security, and full-stack development.</p>
+      <p class="contact-sub">Open to roles in fintech integration, cloud security, and full-stack development. I respond within 24 hours.</p>
       <div class="contact-btns">
         <a href="mailto:cmuchirairungu@gmail.com" class="btn btn-primary">Email Me →</a>
         <a href="https://www.linkedin.com/in/muchira-irungu/" target="_blank" class="btn btn-outline">LinkedIn</a>
@@ -199,7 +266,7 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
   </section>
 </div>
 
-<div class="scroll-indicator" :class="{hide: activeSectionIdx >= 3}">Scroll to explore</div>
+<div class="scroll-indicator" :class="{hide: activeSectionIdx >= 4}">Scroll to explore</div>
 
 <script>
 const {createApp, ref, onMounted} = Vue;
@@ -244,7 +311,7 @@ createApp({
     const sections = ref([]);
     let virtualScroll = 0;
     let ticking = false;
-    const SCROLL_SENSITIVITY = 4.0; // 4 full scrolls per page transition
+    const SCROLL_SENSITIVITY = 2.6; // Reduced by ~1/3 from previous 4.0
 
     onMounted(() => {
       // Typewriter Effect
@@ -268,24 +335,20 @@ createApp({
           const progress = offsetY / pageStep; // -1 to 1
           const absProgress = Math.min(Math.abs(progress), 1);
           
-          // Heavy Z-axis recession + aggressive diagonal Y displacement
           const scale = 1 - (absProgress * 0.15);
           const z = -absProgress * 800; 
-          const y = progress * 350; // Pushes them further out of viewport
-          const opacity = Math.max(0, 1 - (absProgress * 1.3)); // Aggressive fade
+          const y = progress * 350; 
+          const opacity = Math.max(0, 1 - (absProgress * 1.3)); 
           const blur = absProgress * 4;
 
-          // Apply transforms
           el.style.transform = `translate3d(0, ${y}px, ${z}px) scale(${scale})`;
           el.style.opacity = opacity;
           el.style.filter = `blur(${blur}px)`;
           
-          // LAYERING & GHOSTING FIXES
           const isActive = Math.abs(progress) < 0.15;
           el.style.zIndex = isActive ? 10 : 1;
           el.style.pointerEvents = isActive ? 'auto' : 'none';
           
-          // Force completely out of render tree when far away
           if (absProgress > 0.95) {
              el.style.visibility = 'hidden';
           } else {
@@ -293,14 +356,12 @@ createApp({
           }
         });
         
-        // Update Progress Bar & Nav
         const pct = (virtualScroll / maxScroll) * 100;
         document.getElementById('scroll-bar').style.width = Math.min(pct, 100) + '%';
         activeSectionIdx.value = Math.round(virtualScroll / pageStep);
         ticking = false;
       };
 
-      // Scroll Hijacking (Wheel & Touch)
       wrapper.addEventListener('wheel', (e) => {
         e.preventDefault();
         virtualScroll += e.deltaY;
@@ -321,10 +382,8 @@ createApp({
         }
       }, { passive: false });
 
-      // Initial Render
       update3DDepth();
 
-      // Handle Resize
       window.addEventListener('resize', () => {
         const newPageStep = window.innerHeight * SCROLL_SENSITIVITY;
         const newMaxScroll = (sectionElements.length - 1) * newPageStep;
@@ -334,12 +393,8 @@ createApp({
     });
 
     return {
-      activeSectionIdx, typed, projects: [
-        {badge:'LIVE PILOT',title:'Digital Attendance System',desc:'Live mobile platform using camera capture, piloted at a primary school.',live:'https://dasv2.mooo.com/auth/login',src:'https://github.com/MuchiraIrungu/DAS_V2'},
-        {badge:'HACKATHON',title:'ChamaConnect',desc:'Financial coordination platform for community savings groups.',src:'https://github.com/MuchiraIrungu/ChamaConnect'},
-        {badge:'LIVE FINTECH',title:'Ecolive Platform',desc:'Investment platform integrating 3 backend services with CI/CD.',live:'https://ecolive.vercel.app'}
-      ],
-      nav: [{id:'about',label:'About',idx:1},{id:'projects',label:'Projects',idx:2},{id:'contact',label:'Contact',idx:3}]
+      activeSectionIdx, typed,
+      nav: [{id:'about',label:'About',idx:1},{id:'projects',label:'Projects',idx:2},{id:'experience',label:'Experience',idx:3},{id:'contact',label:'Contact',idx:4}]
     };
   }
 }).mount('#app-wrapper');
