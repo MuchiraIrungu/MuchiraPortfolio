@@ -40,7 +40,14 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
 
 /* ── 3D SCROLL WRAPPER ── */
 #app-wrapper{position:relative;height:100vh;width:100vw;perspective:1200px;overflow:hidden;z-index:1;}
-.section-3d{position:absolute;top:0;left:0;width:100%;height:100vh;display:flex;justify-content:center;align-items:center;padding:5vw;will-change:transform, opacity, filter;backface-visibility:hidden;pointer-events:none;box-sizing:border-box;background:transparent;}
+.section-3d{
+  position:absolute;top:0;left:0;width:100%;height:100vh;
+  /* FIXED: Solid Opaque Background so text is perfectly readable */
+  background: var(--bg); 
+  display:flex;justify-content:center;align-items:center;padding:5vw;
+  will-change:transform, opacity, filter;backface-visibility:hidden;
+  pointer-events:none;box-sizing:border-box;
+}
 .section-3d.active{pointer-events:auto;}
 
 /* Content layout */
@@ -144,7 +151,6 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
       </div>
       <div class="section-img-col">
         <div class="photo-wrapper">
-          <!-- Rename your blue sweater photo to profile.jpg and place it in the same folder -->
           <img src="profile.jpg" alt="Collins Muchira">
           <div class="photo-badge">Open to Work</div>
         </div>
@@ -200,7 +206,7 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
 <script>
 const {createApp, ref, onMounted} = Vue;
 
-/* ── CONSTELLATION CANVAS (Lightweight 50 dots) ── */
+/* ── CONSTELLATION CANVAS ── */
 (() => {
   const canvas = document.getElementById('constellation-canvas');
   const ctx = canvas.getContext('2d');
@@ -240,6 +246,7 @@ createApp({
     const sections = ref([]);
     let virtualScroll = 0;
     let ticking = false;
+    const SCROLL_SENSITIVITY = 2.5; // Increase this number to make transitions even longer
 
     onMounted(() => {
       // Typewriter Effect
@@ -248,23 +255,24 @@ createApp({
       function loop() { const cur = phrases[pi]; if(!del){ci++; typed.value = cur.slice(0,ci); if(ci===cur.length){del=true; setTimeout(loop,1800); return;}} else {ci--; typed.value = cur.slice(0,ci); if(ci===0){del=false; pi=(pi+1)%phrases.length;}} setTimeout(loop, del?30:55);}
       loop();
 
-      // ── SCROLL MATH & 3D TRANSFORM ENGINE ──
+      // ── SCROLL MATH ENGINE ──
       const wrapper = document.getElementById('app-wrapper');
       const sectionElements = document.querySelectorAll('.section-3d');
       sections.value = sectionElements;
-
-      const maxScroll = (sectionElements.length - 1) * window.innerHeight;
+      
+      const pageStep = window.innerHeight * SCROLL_SENSITIVITY;
+      const maxScroll = (sectionElements.length - 1) * pageStep;
 
       const update3DDepth = () => {
         const vh = window.innerHeight;
         sectionElements.forEach((el, idx) => {
-          const offsetY = (idx * vh) - virtualScroll;
-          const progress = offsetY / vh; // -1 to 1
+          const offsetY = (idx * pageStep) - virtualScroll;
+          const progress = offsetY / pageStep; // -1 to 1
           const absProgress = Math.min(Math.abs(progress), 1);
-
-          // Math for heavy Z-axis recession + slight Y displacement for "appearing from bottom"
+          
+          // Heavy Z-axis recession + diagonal Y displacement
           const scale = 1 - (absProgress * 0.15);
-          const z = -absProgress * 800;
+          const z = -absProgress * 800; 
           const y = progress * 120; // slides up/down as it recedes
           const opacity = 1 - (absProgress * 0.6);
           const blur = absProgress * 4;
@@ -272,15 +280,15 @@ createApp({
           el.style.transform = `translate3d(0, ${y}px, ${z}px) scale(${scale})`;
           el.style.opacity = opacity;
           el.style.filter = `blur(${blur}px)`;
-
+          
           // Pointer events only for active section
           el.classList.toggle('active', Math.abs(progress) < 0.15);
         });
-
+        
         // Update Progress Bar & Nav
         const pct = (virtualScroll / maxScroll) * 100;
         document.getElementById('scroll-bar').style.width = Math.min(pct, 100) + '%';
-        activeSectionIdx.value = Math.round(virtualScroll / vh);
+        activeSectionIdx.value = Math.round(virtualScroll / pageStep);
         ticking = false;
       };
 
@@ -298,7 +306,7 @@ createApp({
         const deltaY = e.touches[0].clientY - startY;
         if (Math.abs(deltaY) > 20) {
           e.preventDefault();
-          virtualScroll -= deltaY; // Invert for natural scrolling on mobile
+          virtualScroll -= deltaY; 
           virtualScroll = Math.max(0, Math.min(maxScroll, virtualScroll));
           if (!ticking) { requestAnimationFrame(update3DDepth); ticking = true; }
           startY = e.touches[0].clientY;
@@ -310,8 +318,9 @@ createApp({
 
       // Handle Resize
       window.addEventListener('resize', () => {
-        const newMax = (sectionElements.length - 1) * window.innerHeight;
-        virtualScroll = Math.min(virtualScroll, newMax);
+        const newPageStep = window.innerHeight * SCROLL_SENSITIVITY;
+        const newMaxScroll = (sectionElements.length - 1) * newPageStep;
+        virtualScroll = Math.min(virtualScroll, newMaxScroll);
         update3DDepth();
       });
     });
