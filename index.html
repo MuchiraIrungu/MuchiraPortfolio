@@ -82,15 +82,21 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
 .stat-num{font-weight:900;font-size:2.8rem;color:var(--text-primary);}
 
 /* ── SKILLS ── */
-.projects-col h2{font-weight:900;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-0.02em;margin-bottom:1.5rem;}
-.projects-col h2 span{color:var(--accent-secondary);}
+.skills-col h2{font-weight:900;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-0.02em;margin-bottom:1.5rem;}
+.skills-col h2 span{color:var(--accent-secondary);}
 .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;width:100%;}
+@media(max-width:900px){.skills-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.skills-grid{grid-template-columns:1fr;}}
 .skill-card{background:var(--surface);padding:1.5rem;border-radius:20px;border:1px solid var(--border);transition:transform 0.3s;}
 .skill-card h3{font-weight:700;font-size:1rem;margin-bottom:1rem;}
 .tag{font-family:var(--font-mono);font-size:0.7rem;font-weight:500;color:var(--text-secondary);background:#F1F0EE;padding:0.25rem 0.7rem;border-radius:6px;display:inline-block;margin:0.2rem;}
 
 /* ── PROJECTS ── */
+.projects-col h2{font-weight:900;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-0.02em;margin-bottom:1.5rem;}
+.projects-col h2 span{color:var(--accent-secondary);}
 .project-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;width:100%;margin-top:2rem;}
+@media(max-width:900px){.project-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.project-grid{grid-template-columns:1fr;}}
 .project-card{background:var(--surface);padding:1.5rem;border-radius:20px;border:1px solid var(--border);transition:transform 0.3s;}
 .project-card h3{font-weight:700;font-size:1.2rem;margin-bottom:0.5rem;}
 .p-badge{font-size:0.65rem;font-weight:600;color:var(--surface);background:var(--accent);padding:0.2rem 0.8rem;border-radius:50px;width:fit-content;margin-bottom:0.8rem;}
@@ -128,6 +134,16 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
 
 <canvas id="constellation-canvas"></canvas>
 <div id="scroll-bar"></div>
+
+<!-- 6-Page Spine (5 connectors) -->
+<div id="spine">
+  <div class="sn" id="sn0"></div><div class="sc" id="sc0"></div>
+  <div class="sn" id="sn1"></div><div class="sc" id="sc1"></div>
+  <div class="sn" id="sn2"></div><div class="sc" id="sc2"></div>
+  <div class="sn" id="sn3"></div><div class="sc" id="sc3"></div>
+  <div class="sn" id="sn4"></div><div class="sc" id="sc4"></div>
+  <div class="sn" id="sn5"></div>
+</div>
 
 <nav>
   <div class="nav-logo">CM<span>.</span></div>
@@ -168,7 +184,7 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
   </section>
 
   <!-- ABOUT (1) -->
-  <section class="section-3d" data-section="1">
+  <section id="about" class="section-3d" data-section="1">
     <div class="about-col" style="max-width:900px;margin:0 auto;width:100%;">
       <h2>Security-First <span>Engineering.</span></h2>
       <p>I'm a full-stack developer based in Nairobi, completing my BBIT at JKUAT. I specialize in building and securing the complex integrations that fintech and banking platforms rely on, with production experience across Django, React, and Node.js.</p>
@@ -181,9 +197,9 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
     </div>
   </section>
 
-  <!-- SKILLS + PROJECTS (2) -->
-  <section class="section-3d" data-section="2">
-    <div class="projects-col" style="max-width:1200px;margin:0 auto;width:100%;">
+  <!-- SKILLS (2) -->
+  <section id="skills" class="section-3d" data-section="2">
+    <div class="skills-col" style="max-width:1200px;margin:0 auto;width:100%;">
       <h2>What I <span>build with.</span></h2>
       <div class="skills-grid">
         <div class="skill-card"><h3>Languages</h3><span class="tag">Python</span><span class="tag">Java</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span></div>
@@ -193,8 +209,13 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
         <div class="skill-card"><h3>Cloud & Infra</h3><span class="tag">AWS EC2</span><span class="tag">Nginx</span><span class="tag">Gunicorn</span><span class="tag">Docker</span></div>
         <div class="skill-card"><h3>Tools</h3><span class="tag">Git/GitHub</span><span class="tag">GitHub Actions</span><span class="tag">Postman</span><span class="tag">Jira</span></div>
       </div>
-      
-      <h2 style="font-weight:900;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-0.02em;margin:2.5rem 0 1.5rem;">Systems I've <span style="color:var(--accent-secondary);">deployed.</span></h2>
+    </div>
+  </section>
+
+  <!-- PROJECTS (3) -->
+  <section id="projects" class="section-3d" data-section="3">
+    <div class="projects-col" style="max-width:1200px;margin:0 auto;width:100%;">
+      <h2>Systems I've <span>deployed.</span></h2>
       <div class="project-grid">
         <div class="project-card">
           <div class="p-badge">LIVE · FINTECH</div>
@@ -224,8 +245,8 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
     </div>
   </section>
 
-  <!-- EXPERIENCE (3) -->
-  <section class="section-3d" data-section="3">
+  <!-- EXPERIENCE (4) -->
+  <section id="experience" class="section-3d" data-section="4">
     <div class="experience-col" style="max-width:1000px;margin:0 auto;width:100%;">
       <h2>Where <span>I've worked.</span></h2>
       <div class="tl-item">
@@ -252,8 +273,8 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
     </div>
   </section>
 
-  <!-- CONTACT (4) -->
-  <section class="section-3d" data-section="4">
+  <!-- CONTACT (5) -->
+  <section id="contact" class="section-3d" data-section="5">
     <div class="contact-panel">
       <div class="contact-headline">Let's build <span>something.</span></div>
       <p class="contact-sub">Open to roles in fintech integration, cloud security, and full-stack development. I respond within 24 hours.</p>
@@ -266,7 +287,7 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
   </section>
 </div>
 
-<div class="scroll-indicator" :class="{hide: activeSectionIdx >= 4}">Scroll to explore</div>
+<div class="scroll-indicator" :class="{hide: activeSectionIdx >= 5}">Scroll to explore</div>
 
 <script>
 const {createApp, ref, onMounted} = Vue;
@@ -304,6 +325,23 @@ const {createApp, ref, onMounted} = Vue;
   init(); animate();
 })();
 
+/* ── SPINE ── */
+const sectionIds = ['about','skills','projects','experience','contact'];
+(() => {
+  const nodes = [...document.querySelectorAll('.sn')]; const conns = [...document.querySelectorAll('.sc')];
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const idx = sectionIds.indexOf(e.target.id);
+      if(idx < 0) return;
+      if(e.isIntersecting) {
+        nodes.forEach((n,i) => n.classList.toggle('lit', i <= idx + 1)); // idx+1 because Hero is index 0
+        conns.forEach((c,i) => c.classList.toggle('lit', i < idx + 1));
+      }
+    });
+  }, {threshold: 0.4});
+  sectionIds.forEach(id => { const el = document.getElementById(id); if(el) obs.observe(el); });
+})();
+
 createApp({
   setup() {
     const activeSectionIdx = ref(0);
@@ -311,7 +349,8 @@ createApp({
     const sections = ref([]);
     let virtualScroll = 0;
     let ticking = false;
-    const SCROLL_SENSITIVITY = 2.6; // Reduced by ~1/3 from previous 4.0
+    // FAST & SNAPPY SCROLL: 1.2x screen height per transition
+    const SCROLL_SENSITIVITY = 1.2; 
 
     onMounted(() => {
       // Typewriter Effect
@@ -394,7 +433,13 @@ createApp({
 
     return {
       activeSectionIdx, typed,
-      nav: [{id:'about',label:'About',idx:1},{id:'projects',label:'Projects',idx:2},{id:'experience',label:'Experience',idx:3},{id:'contact',label:'Contact',idx:4}]
+      nav: [
+        {id:'about',label:'About',idx:1},
+        {id:'skills',label:'Skills',idx:2},
+        {id:'projects',label:'Projects',idx:3},
+        {id:'experience',label:'Experience',idx:4},
+        {id:'contact',label:'Contact',idx:5}
+      ]
     };
   }
 }).mount('#app-wrapper');
