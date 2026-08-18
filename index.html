@@ -41,12 +41,10 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
 /* ── 3D SCROLL WRAPPER ── */
 #app-wrapper{position:relative;height:100vh;width:100vw;perspective:1200px;overflow:hidden;z-index:1;}
 .section-3d{
-  position:absolute;top:0;left:0;width:100%;height:100vh;
-  /* FIX: Solid Opaque Background so no ghosting */
-  background: var(--bg); 
+  position:absolute;top:0;left:0;width:100%;height:100vh;background:var(--bg); 
   display:flex;justify-content:center;align-items:center;padding:5vw;
-  will-change:transform, opacity, filter;backface-visibility:hidden;
-  pointer-events:none;box-sizing:border-box;
+  will-change:transform, opacity, filter, z-index, visibility;
+  backface-visibility:hidden;pointer-events:none;box-sizing:border-box;
 }
 .section-3d.active{pointer-events:auto;}
 
@@ -151,7 +149,7 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
       </div>
       <div class="section-img-col">
         <div class="photo-wrapper">
-          <img src="image1 (1).jpeg" alt="Collins Muchira">
+          <img src="profile.jpg" alt="Collins Muchira">
           <div class="photo-badge">Open to Work</div>
         </div>
       </div>
@@ -246,8 +244,7 @@ createApp({
     const sections = ref([]);
     let virtualScroll = 0;
     let ticking = false;
-    // EXTENDED SCROLL DISTANCE: 4.0 means you must scroll 4 screen heights to flip a page!
-    const SCROLL_SENSITIVITY = 4.0; 
+    const SCROLL_SENSITIVITY = 4.0; // 4 full scrolls per page transition
 
     onMounted(() => {
       // Typewriter Effect
@@ -271,21 +268,29 @@ createApp({
           const progress = offsetY / pageStep; // -1 to 1
           const absProgress = Math.min(Math.abs(progress), 1);
           
-          // Heavy Z-axis recession + diagonal Y displacement
+          // Heavy Z-axis recession + aggressive diagonal Y displacement
           const scale = 1 - (absProgress * 0.15);
           const z = -absProgress * 800; 
-          const y = progress * 120; 
-          // FIX: Opacity drops strictly from 1 down to 0 (vanishes completely)
-          const opacity = 1 - (absProgress * 1.2); 
+          const y = progress * 350; // Pushes them further out of viewport
+          const opacity = Math.max(0, 1 - (absProgress * 1.3)); // Aggressive fade
           const blur = absProgress * 4;
 
           // Apply transforms
           el.style.transform = `translate3d(0, ${y}px, ${z}px) scale(${scale})`;
-          el.style.opacity = Math.max(0, opacity); // Ensures it completely disappears
+          el.style.opacity = opacity;
           el.style.filter = `blur(${blur}px)`;
           
-          // Pointer events only for active section
-          el.classList.toggle('active', Math.abs(progress) < 0.15);
+          // LAYERING & GHOSTING FIXES
+          const isActive = Math.abs(progress) < 0.15;
+          el.style.zIndex = isActive ? 10 : 1;
+          el.style.pointerEvents = isActive ? 'auto' : 'none';
+          
+          // Force completely out of render tree when far away
+          if (absProgress > 0.95) {
+             el.style.visibility = 'hidden';
+          } else {
+             el.style.visibility = 'visible';
+          }
         });
         
         // Update Progress Bar & Nav
