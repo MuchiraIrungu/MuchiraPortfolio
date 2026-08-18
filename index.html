@@ -42,7 +42,7 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
 #app-wrapper{position:relative;height:100vh;width:100vw;perspective:1200px;overflow:hidden;z-index:1;}
 .section-3d{
   position:absolute;top:0;left:0;width:100%;height:100vh;
-  /* FIXED: Solid Opaque Background so text is perfectly readable */
+  /* FIX: Solid Opaque Background so no ghosting */
   background: var(--bg); 
   display:flex;justify-content:center;align-items:center;padding:5vw;
   will-change:transform, opacity, filter;backface-visibility:hidden;
@@ -151,7 +151,7 @@ nav ul a.active{color:var(--text-primary);font-weight:700;}
       </div>
       <div class="section-img-col">
         <div class="photo-wrapper">
-          <img src="profile.jpg" alt="Collins Muchira">
+          <img src="image1 (1).jpeg" alt="Collins Muchira">
           <div class="photo-badge">Open to Work</div>
         </div>
       </div>
@@ -246,7 +246,8 @@ createApp({
     const sections = ref([]);
     let virtualScroll = 0;
     let ticking = false;
-    const SCROLL_SENSITIVITY = 2.5; // Increase this number to make transitions even longer
+    // EXTENDED SCROLL DISTANCE: 4.0 means you must scroll 4 screen heights to flip a page!
+    const SCROLL_SENSITIVITY = 4.0; 
 
     onMounted(() => {
       // Typewriter Effect
@@ -273,12 +274,14 @@ createApp({
           // Heavy Z-axis recession + diagonal Y displacement
           const scale = 1 - (absProgress * 0.15);
           const z = -absProgress * 800; 
-          const y = progress * 120; // slides up/down as it recedes
-          const opacity = 1 - (absProgress * 0.6);
+          const y = progress * 120; 
+          // FIX: Opacity drops strictly from 1 down to 0 (vanishes completely)
+          const opacity = 1 - (absProgress * 1.2); 
           const blur = absProgress * 4;
 
+          // Apply transforms
           el.style.transform = `translate3d(0, ${y}px, ${z}px) scale(${scale})`;
-          el.style.opacity = opacity;
+          el.style.opacity = Math.max(0, opacity); // Ensures it completely disappears
           el.style.filter = `blur(${blur}px)`;
           
           // Pointer events only for active section
